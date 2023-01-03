@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Des 2022 pada 15.38
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.12
+-- Generation Time: Jan 03, 2023 at 02:36 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,171 +18,158 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pepustakaan`
+-- Database: `perpustakaan`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `anggota`
+-- Table structure for table `anggota`
 --
 
 CREATE TABLE `anggota` (
-  `ID_Anggota` char(8) NOT NULL,
-  `Nama` varchar(20) NOT NULL,
-  `Alamat` varchar(50) NOT NULL,
-  `Tanggal_Lahir` date NOT NULL,
-  `Tanggal_Join` date NOT NULL,
-  `Kontak` int(13) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id_Anggota` varchar(10) NOT NULL,
+  `Id_Mahasiswa` varchar(10) NOT NULL,
+  `Nama Anggota` text NOT NULL,
+  `Alamat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `buku`
+-- Table structure for table `buku`
 --
 
 CREATE TABLE `buku` (
-  `ID_Buku` char(8) NOT NULL,
-  `Judul` varchar(50) NOT NULL,
-  `Harga` varchar(25) NOT NULL,
-  `Tipe` varchar(10) NOT NULL,
-  `Genre` varchar(10) NOT NULL,
-  `Stok` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id_Buku` varchar(10) NOT NULL,
+  `Nama Buku` text NOT NULL,
+  `Jenis Buku` varchar(10) NOT NULL,
+  `Pengarang` text NOT NULL,
+  `Penerbit` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `denda`
+-- Table structure for table `mahasiswa`
 --
 
-CREATE TABLE `denda` (
-  `ID_Pustakawan` char(8) NOT NULL,
-  `ID_Buku` char(8) NOT NULL,
-  `ID_Pinjaman` char(8) NOT NULL,
-  `Total_Denda` int(10) NOT NULL,
-  `Jumlah_Buku` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `mahasiswa` (
+  `Id_Mahasiswa` varchar(10) NOT NULL,
+  `Nama` text NOT NULL,
+  `Kelas` varchar(5) NOT NULL,
+  `Jurusan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `peminjaman`
+-- Table structure for table `peminjaman`
 --
 
 CREATE TABLE `peminjaman` (
-  `ID_Pinjaman` char(8) NOT NULL,
-  `ID_Buku` char(8) NOT NULL,
-  `ID_Anggota` char(8) NOT NULL,
-  `ID_Pustakawan` char(8) NOT NULL,
-  `Jumlah_Buku` int(3) NOT NULL,
-  `Tanggal_Pinjam` date NOT NULL,
-  `Tanggal_Kembali` date NOT NULL,
-  `Harga_Sewa` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id_Peminjam` varchar(10) NOT NULL,
+  `Id_Anggota` varchar(10) NOT NULL,
+  `Id_Pustakawan` varchar(10) NOT NULL,
+  `Id_Buku` varchar(10) NOT NULL,
+  `Nama` text NOT NULL,
+  `Tgl_pinjam` date NOT NULL,
+  `Tgl_kembali` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengembalian`
+-- Table structure for table `pengembalian`
 --
 
 CREATE TABLE `pengembalian` (
-  `ID_Pengembalian` char(8) NOT NULL,
-  `ID_Pustakawan` char(8) NOT NULL,
-  `ID_Buku` char(8) NOT NULL,
-  `Jumlah_Buku` int(3) NOT NULL,
-  `Tanggal_Pengembalian` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id_Kembali` varchar(10) NOT NULL,
+  `Id_Peminjam` varchar(10) NOT NULL,
+  `Tgl_Kembali` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pustakawan`
+-- Table structure for table `pustakawan`
 --
 
 CREATE TABLE `pustakawan` (
-  `ID_Pustakawan` char(8) NOT NULL,
-  `Nama` varchar(20) NOT NULL,
-  `Kontak` int(13) NOT NULL,
-  `Alamat` varchar(50) NOT NULL,
-  `Tanggal_Lahir` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id_Pustakawan` varchar(10) NOT NULL,
+  `Id_Buku` varchar(10) NOT NULL,
+  `Nama Pustakawan` text NOT NULL,
+  `Alamat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `anggota`
+-- Indexes for table `anggota`
 --
 ALTER TABLE `anggota`
-  ADD PRIMARY KEY (`ID_Anggota`);
+  ADD PRIMARY KEY (`Id_Anggota`),
+  ADD KEY `Id_Mahasiswa` (`Id_Mahasiswa`);
 
 --
--- Indeks untuk tabel `buku`
+-- Indexes for table `buku`
 --
 ALTER TABLE `buku`
-  ADD PRIMARY KEY (`ID_Buku`);
+  ADD PRIMARY KEY (`Id_Buku`);
 
 --
--- Indeks untuk tabel `denda`
+-- Indexes for table `mahasiswa`
 --
-ALTER TABLE `denda`
-  ADD PRIMARY KEY (`ID_Pustakawan`);
+ALTER TABLE `mahasiswa`
+  ADD PRIMARY KEY (`Id_Mahasiswa`);
 
 --
--- Indeks untuk tabel `peminjaman`
+-- Indexes for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  ADD PRIMARY KEY (`ID_Pinjaman`);
+  ADD PRIMARY KEY (`Id_Peminjam`),
+  ADD KEY `Id_Anggota` (`Id_Anggota`),
+  ADD KEY `Id_Pustakawan` (`Id_Pustakawan`),
+  ADD KEY `Id_Buku` (`Id_Buku`);
 
 --
--- Indeks untuk tabel `pengembalian`
+-- Indexes for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  ADD PRIMARY KEY (`ID_Pengembalian`);
+  ADD PRIMARY KEY (`Id_Kembali`),
+  ADD KEY `Id_Peminjam` (`Id_Peminjam`);
 
 --
--- Indeks untuk tabel `pustakawan`
+-- Indexes for table `pustakawan`
 --
 ALTER TABLE `pustakawan`
-  ADD PRIMARY KEY (`ID_Pustakawan`);
+  ADD PRIMARY KEY (`Id_Pustakawan`);
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `anggota`
+-- Constraints for table `anggota`
 --
 ALTER TABLE `anggota`
-  ADD CONSTRAINT `anggota_ibfk_1` FOREIGN KEY (`ID_Anggota`) REFERENCES `denda` (`ID_Pustakawan`);
+  ADD CONSTRAINT `Id_Mahasiswa` FOREIGN KEY (`Id_Mahasiswa`) REFERENCES `mahasiswa` (`Id_Mahasiswa`);
 
 --
--- Ketidakleluasaan untuk tabel `buku`
---
-ALTER TABLE `buku`
-  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`ID_Buku`) REFERENCES `denda` (`ID_Pustakawan`);
-
---
--- Ketidakleluasaan untuk tabel `peminjaman`
+-- Constraints for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`ID_Pinjaman`) REFERENCES `anggota` (`ID_Anggota`);
+  ADD CONSTRAINT `Id_Anggota` FOREIGN KEY (`Id_Anggota`) REFERENCES `anggota` (`Id_Anggota`),
+  ADD CONSTRAINT `Id_Buku` FOREIGN KEY (`Id_Buku`) REFERENCES `buku` (`Id_Buku`),
+  ADD CONSTRAINT `Id_Pustakawan` FOREIGN KEY (`Id_Pustakawan`) REFERENCES `pustakawan` (`Id_Pustakawan`);
 
 --
--- Ketidakleluasaan untuk tabel `pengembalian`
+-- Constraints for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  ADD CONSTRAINT `pengembalian_ibfk_1` FOREIGN KEY (`ID_Pengembalian`) REFERENCES `denda` (`ID_Pustakawan`);
-
---
--- Ketidakleluasaan untuk tabel `pustakawan`
---
-ALTER TABLE `pustakawan`
-  ADD CONSTRAINT `pustakawan_ibfk_1` FOREIGN KEY (`ID_Pustakawan`) REFERENCES `denda` (`ID_Pustakawan`);
+  ADD CONSTRAINT `Id_Peminjam` FOREIGN KEY (`Id_Peminjam`) REFERENCES `peminjaman` (`Id_Peminjam`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
