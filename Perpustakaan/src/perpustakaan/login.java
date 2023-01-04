@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package perpustakaan;
+package ipl;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Obit
+ * @author hp
  */
 public class login extends javax.swing.JFrame {
 
